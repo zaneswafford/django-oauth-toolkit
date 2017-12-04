@@ -200,7 +200,6 @@ class TokenView(OAuthLibMixin, View):
         
         # Sort json responses
         try:
-            import json
             body = json.dumps(json.loads(body), sort_keys=True)
         except Exception as e:
             print(e)
