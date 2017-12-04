@@ -197,6 +197,14 @@ class TokenView(OAuthLibMixin, View):
                 app_authorized.send(
                     sender=self, request=request,
                     token=token)
+        
+        # Sort json responses
+        try:
+            import json
+            body = json.dumps(json.loads(body), sort_keys=True)
+        except Exception as e:
+            print(e)
+        
         response = HttpResponse(content=body, status=status)
 
         for k, v in headers.items():
