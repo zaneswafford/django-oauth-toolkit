@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import calendar
 import datetime
 
@@ -96,7 +94,7 @@ class TestTokenIntrospectionAuth(TestCase):
             user=self.resource_server_user, token="12345678900",
             application=self.application,
             expires=timezone.now() + datetime.timedelta(days=1),
-            scope="read write introspection"
+            scope="introspection"
         )
 
         self.invalid_token = AccessToken.objects.create(
@@ -129,7 +127,8 @@ class TestTokenIntrospectionAuth(TestCase):
         token = self.validator._get_token_from_authentication_server(
             self.resource_server_token.token,
             oauth2_settings.RESOURCE_SERVER_INTROSPECTION_URL,
-            oauth2_settings.RESOURCE_SERVER_AUTH_TOKEN
+            oauth2_settings.RESOURCE_SERVER_AUTH_TOKEN,
+            oauth2_settings.RESOURCE_SERVER_INTROSPECTION_CREDENTIALS
         )
         self.assertIsNone(token)
 
@@ -141,7 +140,8 @@ class TestTokenIntrospectionAuth(TestCase):
         token = self.validator._get_token_from_authentication_server(
             "foo",
             oauth2_settings.RESOURCE_SERVER_INTROSPECTION_URL,
-            oauth2_settings.RESOURCE_SERVER_AUTH_TOKEN
+            oauth2_settings.RESOURCE_SERVER_AUTH_TOKEN,
+            oauth2_settings.RESOURCE_SERVER_INTROSPECTION_CREDENTIALS
         )
         self.assertIsInstance(token, AccessToken)
         self.assertEqual(token.user.username, "foo_user")

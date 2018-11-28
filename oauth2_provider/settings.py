@@ -15,8 +15,6 @@ This module provides the `oauth2_settings` object, that is used to access
 OAuth2 Provider settings, checking for user settings first, then falling
 back to the defaults.
 """
-from __future__ import unicode_literals
-
 import importlib
 
 from django.conf import settings
@@ -45,7 +43,9 @@ DEFAULTS = {
     "AUTHORIZATION_CODE_EXPIRE_SECONDS": 60,
     "ACCESS_TOKEN_EXPIRE_SECONDS": 36000,
     "REFRESH_TOKEN_EXPIRE_SECONDS": None,
+    "REFRESH_TOKEN_GRACE_PERIOD_SECONDS": 0,
     "ROTATE_REFRESH_TOKEN": True,
+    "ERROR_RESPONSE_WITH_SCOPES": False,
     "APPLICATION_MODEL": APPLICATION_MODEL,
     "ACCESS_TOKEN_MODEL": ACCESS_TOKEN_MODEL,
     "GRANT_MODEL": GRANT_MODEL,
@@ -60,6 +60,7 @@ DEFAULTS = {
     # Resource Server with Token Introspection
     "RESOURCE_SERVER_INTROSPECTION_URL": None,
     "RESOURCE_SERVER_AUTH_TOKEN": None,
+    "RESOURCE_SERVER_INTROSPECTION_CREDENTIALS": None,
     "RESOURCE_SERVER_TOKEN_CACHING_SECONDS": 36000,
 }
 
